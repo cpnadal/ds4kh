@@ -13,11 +13,10 @@ if(isset($_POST['reboot'])) {
 }
 
 // CONNEXION A LA BASE DE DONNEES
-$user = "root";
-if($_SERVER['SERVER_NAME']=="ds4kh.dev") {
-	$pass = "";
-} else {
-	$pass = "alctj";
+switch($_SERVER['SERVER_NAME']) {
+	case "ds4kh.dev" : $user = "root";$pass = "";break;
+	case "ds4kh.mesvideos.org" : $user = "ds4kh";$pass = "ds4kh";break;
+	default : $user = "root";$pass = "alctj";break;
 }
 $dbh = new PDO('mysql:host=localhost;dbname=signage', $user, $pass);
 $dbh->exec("SET NAMES 'utf8'");
