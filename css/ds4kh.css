@@ -1,5 +1,13 @@
-.afficher {
-	height: 100px;
+.afficher_deux_lignes {
+	height: 200px;
 	margin: 10px;
-	min-width: 100px;
+	min-width: 200px;
+	text-align: center;
+}
+.afficher_une_ligne {
+	height: 200px;
+	margin: 10px;
+	min-width: 200px;
+	line-height:200px;
+	text-align: center;
 }

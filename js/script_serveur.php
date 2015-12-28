@@ -1,120 +1,19 @@
 <script>
 $( document ).ready(function() {
+
 	tinymce.init({
+		background: "black",
 		plugins: "image",
 		image_advtab: true,
 		selector:'textarea',
 		menubar: false,
 		plugins: "textcolor",
-		toolbar: "bold italic | fontsizeselect | fontselect | forecolor | alignleft aligncenter alignright alignjustify",
-		fontsize_formats: "36pt 48pt 60pt 72pt 84pt 96pt 108pt",
+		toolbar: "bold italic underline | fontsizeselect | fontselect | forecolor | alignleft aligncenter alignright alignjustify",
+		fontsize_formats: "36pt 48pt 60pt 72pt 84pt 96pt 108pt 120pt 132pt",
 		height : 500,
-		entity_encoding: 'raw'
-	});
+		width : "100%",
+		entity_encoding: 'raw'	});
 
-	$('.layout_show').click(function(){
-		$('.layout_edit').show();
-		$('.edit_user').hide();
-		if(id!="") {
-			$('#action').val('edit');
-			$('#id').val($(this).val());
-			var data = $.ajax({
-				type: 'POST',
-				url: 'inc/fonctions.php', 
-				data: "action=select&layout_id="+$(this).val(),
-				dataType: "json",
-				success: function(response) {
-					if(response.datetime==1) {
-						$('#datetime').attr('checked',true);
-					} else {
-							$('#datetime').removeAttr('checked');
-					}
-					$('#name').val(response.name);
-					tinyMCE.get('texte').setContent(response.text);
-				}
-			})
-			
-		}
-		return false;
-	});
-
-	$('.layout_hide').click(function(){
-		$('.layout_edit').hide();
-	});
-	
-	$('.layout_delete').click(function(){
-		$('.delete_confirm').not($('.delete_confirm_'+$(this).attr('value'))).hide('slow');
-		if($(this).text()=="Supprimer") {
-			$('.layout_delete').text("Supprimer");
-			$(this).text("Annuler");
-		} else {
-			$(this).text("Supprimer");
-		}
-		$('.delete_confirm_'+$(this).attr('value')).toggle('slow');
-	});
-	
-
-	$('.layout_add').click(function(){
-		$('.layout_edit').show();
-		$('#action').val('add');
-		$('#id').val('');
-		$('#name').val('');
-		tinyMCE.get('texte').setContent('');
-		return false;
-	});
-	<?php if(isset($_POST['id']) and $_POST['id']!="") { ?>
-		$('#action').val('edit');
-		$('#id').val(<?php echo $_POST['id']; ?>);
-		var data = $.ajax({
-			type: 'POST',
-			url: 'inc/fonctions.php', 
-			data: "action=select&layout_id="+<?php echo $_POST['id']; ?>,
-			dataType: "json",
-			success: function(response) {
-				if(response.datetime==1) {
-					$('#datetime').attr('checked',true);
-				} else {
-					$('#datetime').removeAttr('checked');
-				}
-				$('#name').val(response.name);
-				var update_texte = response.text;
-				tinyMCE.get('texte').setContent(response.text);
-			}
-		})
-	<?php } ?>
-
-	$('#submit').submit(function(){
-		var erreur = 0;
-		var texte_erreur = "";
-		var erreur_nom = 0;
-		var erreur_texte = 0;
-		if( !$('#name').val() ) {
- 			erreur_nom = 1
-			erreur = 1
-		}
-		if( tinyMCE.get('texte').getContent()=='' ) {
-			erreur_texte = 1
-			erreur = 1
-		}
-		if(erreur==1) {
-			texte_erreur = "Les champs suivants ne peuvent pas être vides : \n\r";
-			if(erreur_nom==1) { texte_erreur += "- Nom"; }
-			if(erreur_texte==1) { texte_erreur += "\n- Texte"; }
-			texte_erreur += "\n\rMerci de les remplir";
-			alert(texte_erreur);
-			return false;
-		}
-
-	});
-	$('.user').click(function(){
-		$('.layout_edit').hide();
-		$('.edit_user').toggle();
-		$('.edit_parameters').hide();
-	});
-	$('.langue').click(function(){
-		$('.parametre').hide();
-		$('.edit_langue').toggle();
-	});
 	$('.edit_password').click(function(){
 		if($(this).is(':checked')){ 
 			$('.password').show();
@@ -158,29 +57,114 @@ $( document ).ready(function() {
 			}
 		})
 	});
+	$('.langue_new').click(function(){
+		$('.langue_detail').show();
+		$('#langue_nom').val();
+		tinyMCE.get('langue_texte_annuel').setContent();
+		$('#langue_cantique').val();
+		$('#langue_id').val();
+	});
 	//
 	
-	$('.screen_edit').click(function(){
-		$('#screen_delete').show();
-		$('#screen_id').val($(this).attr('value'));
-		var data = $.ajax({
-			type: 'POST',
-			url: 'inc/fonctions.php', 
-			data: "action=select_screen&screen_id="+$(this).attr('value'),
-			dataType: "json",
-			success: function(response) {
-				$('#screen_name').val(response.screen_name);
-				$('#screen_width').val(response.screen_width);
-				$('#screen_height').val(response.screen_height);
+	// NOUVEAU MEDIA
+	$('input[type=file]').bootstrapFileInput();
+	$('.select_media').change(function() {
+		var currentForm = $(this).closest('form');
+		currentForm.submit();
+	});
+	//
+
+	// CANTIQUE
+	$('.cantique').click(function() {
+		currentForm = $(this).closest('form');
+		$(".dialog_cantique").dialog('open');
+		return false;
+	});
+	$(".dialog_cantique").dialog({
+		show: {
+			effect: 'fade',
+			duration: 500
+		},
+		hide: {
+			effect: 'fade',
+			duration: 500
+		},
+		title: 'Afficher le numéro du cantique',
+		dialogClass: 'no-close',
+		resizable: false,
+		height:'auto',
+		width:350,
+		modal: false,
+		autoOpen: false,
+		buttons: {
+			'Afficher ce numéro': function() {
+				$(this).dialog('close');
+				var input = $("<input>")
+				.attr("type", "hidden")
+				.attr("name", "cantique").val($('#cantique').val());
+				currentForm.append($(input));
+				currentForm.submit();
+			},
+			'Annuler': function() {
+				$(this).dialog('close');
 			}
-		})
-		$('.password_edit').show();
-		$('.password').hide();
-		$('#password').attr('disabled',true);
+		},
+		open: function() {
+			$(".dialog_cantique").keypress(function(e) {
+				if (e.keyCode == $.ui.keyCode.ENTER) {
+					$(this).parent().find('.ui-dialog-buttonpane button:first').trigger("click");
+				}
+			});
+		}
 	});
-	$('.mode').change(function() {
-		alert('t');
+	//
+
+	// TEXTE
+	$('.nouveau_texte').click(function() {
+		
+          currentForm = $(this).closest('form');
+          $(".dialog_nouveau_texte").dialog('open');
+          return false;
+		
 	});
+	$(".dialog_nouveau_texte").dialog({
+		show: {
+			effect: 'fade',
+			duration: 500
+		},
+		hide: {
+			effect: 'fade',
+			duration: 500
+		},
+		title: 'Afficher un texte personnalisé',
+		resizable: false,
+		height:750,
+		width:"100%",
+		modal: false,
+		autoOpen: false,
+		buttons: {
+			'Afficher ce texte': function() {
+				var nouveau_texte = tinyMCE.get('nouveau_texte').getContent({format : 'raw'});
+				$(this).dialog('close');
+				var input = $("<textarea>")
+				.attr("name", "texte").val(nouveau_texte);
+				currentForm.append($(input));
+				if( $('input[name=date_time]').is(':checked') ){
+				var input = $("<input>")
+				.attr("name", "datetime").val(1);
+				currentForm.append($(input));
+				}
+				var input = $("<input>")
+				.attr("name", "record_and_update").val("");
+				currentForm.append($(input));
+				currentForm.submit();
+			},
+			'Annuler': function() {
+				$(this).dialog('close');
+			}
+		}
+	});
+	//
 
 });
 </script>

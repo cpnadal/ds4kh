@@ -1,18 +1,10 @@
-<?php
-$stmt = $dbh->prepare('SELECT * FROM config WHERE config_name=?');
-$stmt->execute(array("client_name"));
-$client_name = $stmt->fetch();
-$stmt = $dbh->prepare('SELECT * FROM config WHERE config_name=?');
-$stmt->execute(array("server_address"));
-$server_address = $stmt->fetch();
-?>
 <script>
-var XML_filename = "http://<?php echo $server_address['config_value']; ?>/data_<?php echo $client_name['config_value']; ?>.xml";
+var XML_filename = "data.xml";
 function serverAutoRun() {
-	setInterval(function(){showDateTime()},500); //run showDateTime function every second
+	setInterval(function(){showDateTime()},100); //run showDateTime function every second
 	document.bgColor="black"; //set background to black
 	Current_fileTime= getFiletime();
-	setInterval(function(){fileIsModified()},500); //run fileIsModified function every 5 seconds
+	setInterval(function(){fileIsModified()},100); //run fileIsModified function every 5 seconds
 	loadSettings();	//load moving message & currencies
 }
 
