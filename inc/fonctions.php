@@ -163,36 +163,6 @@ if(isset($_POST['show_picture'])) {
 }
 //
 
-// AJOUT D'UNE VIDEO
-if(isset($_POST['show_video'])) {
-	$target_dir = "upload/";
-	$files = glob($target_dir."*");
-	foreach($files as $file){
-		if(is_file($file))
-		unlink($file);
-	}
-	$target_file = $target_dir . date("YmdHis") . "-" . basename($_FILES["video_file"]["name"]);
-	$uploadOk = 1;
-	$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-	if ($_FILES["video_file"]["size"] > 500000000) {
-		echo "La taille du fichier doit être inférieur à 500Mo.";
-		$uploadOk = 0;
-	}
-	if($imageFileType != "mp4"
-	) {
-		echo "Seul le format .mp4 est autorisé.";
-		$uploadOk = 0;
-	}
-	if ($uploadOk == 0) {
-		echo "Ce fichier n'a pas été envoyé. L'écran ne pourra pas être mis à jour.";
-	} else {
-		if (move_uploaded_file($_FILES["video_file"]["tmp_name"], $target_file)) {
-		} else {
-			echo "Ce fichier n'a pas été envoyé. L'écran ne pourra pas être mis à jour.";
-		}
-	}
-}
-
 // AFFICHAGE D'UN MEDIA
 if(isset($_POST['show_picture']) or isset($_POST['show_video'])) {
 	$writer = new XMLWriter();
@@ -205,11 +175,6 @@ if(isset($_POST['show_picture']) or isset($_POST['show_video'])) {
 		$writer->text("image");
 		$writer->endElement();
 		$writer->startElement('IMAGE');
-	}
-	if(isset($_POST['show_video'])) {
-		$writer->text("video");
-		$writer->endElement();
-		$writer->startElement('VIDEO');
 	}
 	$writer->writeCData($target_file);
 	$writer->endElement();

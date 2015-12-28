@@ -15,14 +15,10 @@
 </head>
 <body style="background-color:#FFEEEE;padding-left:10px;padding-right:10px">
 <h1 align="center">GESTION DE L'ECRAN D'AFFICHAGE DU TEXTE DE L'ANNEE</h1>
-<?php if(isset($_SESSION['user_id'])) { ?>
 <form style="float:right" method="post">
-	<?php if($_SESSION['user_id']==1 and $_SERVER['SCRIPT_NAME']=="/index.php") { ?>
-		<button class="btn btn-warning" name="administration">Administration</button>
-	<?php } ?>
-	<?php if($_SESSION['user_id']==1 and $_SERVER['SCRIPT_NAME']=="/admin.php") { ?>
+	<button class="btn btn-warning" name="administration">Administration</button>
+	<?php if(isset($_SESSION['user_id']) and $_SESSION['user_id']==1 and $_SERVER['SCRIPT_NAME']=="/admin.php") { ?>
 		<button class="btn btn-warning" name="utilisation">Utilisation</button>
+		<button class="btn btn-danger" name="logoff">Se déconnecter</button>
 	<?php } ?>
-	<button class="btn btn-danger" name="logoff">Se déconnecter</button>
 </form>
-<?php } ?>
