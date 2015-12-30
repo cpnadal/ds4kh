@@ -1,36 +1,18 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="utf-8">
-<title>Digital Signage</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <?php include('inc/fonctions.php'); ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 
+<html>
+<head>
+<title>Digital Signage for Kingdom Hall</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="js/jquery-2.1.4.js"></script>
+<script src="js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+<script src="js/tinymce_4.3.2/tinymce.min.js"></script>
+<link rel="stylesheet" href="js/jquery-ui-1.11.4/jquery-ui.theme.css">
+  <link rel="stylesheet" href="js/bootstrap-3.3.6-dist/css/bootstrap.css">
+<script src="js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+<script src="js/bootstrap.file-input.js"></script>
+<link rel="stylesheet" href="css/ds4kh.css">
 <?php include('js/script_afficheur.php'); ?>
-<script src ="js/imgLiquid.js" type="text/javascript"></script>
-<script type="text/javascript"></script>
-<style type="text/css">
-body, html {
-	margin:0;
-	padding:0;
-	width:100%;
-	height:100%;
-}
-.full{
-	width:100%;
-	height:100%;
-	background-color: #000;
-	display: block;
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	color: #FFF;
-	align: center;
-}
-.footer {
-	position: absolute;
-	bottom: 0;
-}
-</style>
 </head>
 <body onLoad="serverAutoRun()">
 		<div id="text" class="text imgLiquidFill imgLiquid full" align="center" >

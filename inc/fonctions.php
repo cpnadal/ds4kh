@@ -55,7 +55,6 @@ if(isset($_POST['cantique'])) {
 	$text .= "<br>";
 	$text .= $detail['langue_cantique'];
 	$text .= "<br>";
-	$text .= "<br>";
 	$text .= $_POST['cantique'];
 	$text .= '</span>';
 	$writer = new XMLWriter();

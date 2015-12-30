@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `langue` (
   `langue_cantique` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `langue_active` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`langue_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Contenu de la table `langue`
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `username` text NOT NULL,
   `password` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Contenu de la table `user`

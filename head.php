@@ -2,6 +2,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 
 <html>
 <head>
+<title>Digital Signage for Kingdom Hall</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script src="js/jquery-2.1.4.js"></script>
 <script src="js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
