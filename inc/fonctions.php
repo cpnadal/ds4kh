@@ -35,6 +35,24 @@ if(isset($_POST['database_update'])) {
 			$templine = '';
 		}
 	}
+	$stmt = $dbh->prepare('SELECT * FROM langue WHERE langue_id=1');
+	$stmt->execute(array());
+	$detail = $stmt->fetch();
+	$text = $detail['langue_texte_annuel'];
+	$writer = new XMLWriter();
+	$writer->openURI($xml_file_name);
+	$writer->startDocument('1.0','UTF-8');
+	$writer->setIndent(4);
+	$writer->startElement('SETTINGS');
+	$writer->startElement('TEXT');
+	$writer->writeCData($text);
+	$writer->endElement();
+	$datetime = 0;
+	if(isset($_POST['datetime'])) { $datetime = 1; }
+	$writer->writeElement ('DATETIME',$datetime);
+	$writer->endElement();
+	$writer->endElement();
+	$writer->flush();
 }
 
 // MISE A JOUR DU SYSTEME
