@@ -17,6 +17,9 @@ $dbh->exec("SET COLLATION_CONNECTION='utf8_general_ci'");
 
 // MISE A JOUR DE LA BASE DE DONNEES
 if(isset($_POST['database_update'])) {
+	$folder = $_SERVER['DOCUMENT_ROOT'];
+	$commande = "cd ".$folder.";git -c diff.mnemonicprefix=false -c core.quotepath=false fetch origin;git -c diff.mnemonicprefix=false -c core.quotepath=false pull origin master;git -c diff.mnemonicprefix=false -c core.quotepath=false submodule update --init --recursive;";	
+	exec($commande);
 	$filename = 'ds4kh.sql';
 	$templine = '';
 	$lines = file($filename);
