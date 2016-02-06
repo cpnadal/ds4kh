@@ -47,7 +47,7 @@ if(isset($_POST['database_update'])) {
 // MISE A JOUR DU SYSTEME
 if(isset($_POST['system_update'])) {
 	$folder = $_SERVER['DOCUMENT_ROOT'];
-	exec("cd ".$folder.";git fetch origin/master;git force reset --hard;");
+	exec("cd ".$folder.";git -c diff.mnemonicprefix=false -c core.quotepath=false fetch origin;git -c diff.mnemonicprefix=false -c core.quotepath=false pull origin master;git -c diff.mnemonicprefix=false -c core.quotepath=false submodule update --init --recursive;");
 }
 	
 $xml_file_name = 'data.xml';
