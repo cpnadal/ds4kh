@@ -6,7 +6,7 @@ session_start();
 switch($_SERVER['SERVER_NAME']) {
 	case "ds4kh.dev" : $user = "root";$pass = "";break;
 	case "ds4kh.mesvideos.org" : $user = "ds4kh";$pass = "ds4kh";break;
-	default : $user = "root";$pass = "alctj";break;
+	default : $user = "root";$pass = "jw.org2014";break;
 }
 $dbh = new PDO('mysql:host=localhost;dbname=signage', $user, $pass);
 $dbh->exec("SET NAMES 'utf8'");
