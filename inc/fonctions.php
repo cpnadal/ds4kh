@@ -2,16 +2,6 @@
 // LANCEMENT DE LA SESSION
 session_start();
 
-// ARRET DU SYSTEME
-if(isset($_POST['halt'])) {
-	exec('sudo halt');
-}
-
-// REBOOT DU SYSTEME
-if(isset($_POST['reboot'])) {
-	exec('sudo reboot');
-}
-
 // CONNEXION A LA BASE DE DONNEES
 switch($_SERVER['SERVER_NAME']) {
 	case "ds4kh.dev" : $user = "root";$pass = "";break;
@@ -47,7 +37,8 @@ if(isset($_POST['database_update'])) {
 // MISE A JOUR DU SYSTEME
 if(isset($_POST['system_update'])) {
 	$folder = $_SERVER['DOCUMENT_ROOT'];
-	exec("cd ".$folder.";git -c diff.mnemonicprefix=false -c core.quotepath=false fetch origin;git -c diff.mnemonicprefix=false -c core.quotepath=false pull origin master;git -c diff.mnemonicprefix=false -c core.quotepath=false submodule update --init --recursive;");
+	$commande = "cd ".$folder.";git -c diff.mnemonicprefix=false -c core.quotepath=false fetch origin;git -c diff.mnemonicprefix=false -c core.quotepath=false pull origin master;git -c diff.mnemonicprefix=false -c core.quotepath=false submodule update --init --recursive;";	
+	exec($commande);
 }
 	
 $xml_file_name = 'data.xml';

@@ -1,7 +1,7 @@
 <?php include('head.php'); ?>
 <?php include('login.php'); ?>
 <?php if(isset($_SESSION['user_id']) and $_SESSION['user_id']==1) { ?>
-<h2 align="center">ADMINISTRATIONes</h2>
+<h2 align="center">ADMINISTRATION</h2>
 <br>
 <h3>Langues</h3>
 <br>
