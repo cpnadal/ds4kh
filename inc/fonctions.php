@@ -25,6 +25,31 @@ $dbh->exec("SET CHARACTER_SET_CLIENT='utf8'");
 $dbh->exec("SET CHARACTER_SET_RESULTS='utf8'");
 $dbh->exec("SET COLLATION_CONNECTION='utf8_general_ci'");
 
+// MISE A JOUR DE LA BASE DE DONNEES
+if(isset($_POST['database_update'])) {
+	$filename = 'ds4kh.sql';
+	$templine = '';
+	$lines = file($filename);
+	foreach ($lines as $line) {
+		if (substr($line, 0, 2) == '--' || $line == '') {
+			continue;
+		} else {
+			$templine .= $line;
+		}
+		if (substr(trim($line), -1, 1) == ';') {
+			$stmt = $dbh->prepare($templine);
+			$stmt->execute();
+			$templine = '';
+		}
+	}
+}
+
+// MISE A JOUR DU SYSTEME
+if(isset($_POST['system_update'])) {
+	$folder = $_SERVER['DOCUMENT_ROOT'];
+	exec("cd ".$folder.";git fetch origin/master;git force reset --hard;");
+}
+	
 $xml_file_name = 'data.xml';
 
 // AFFICHAGE D'UN TEXTE

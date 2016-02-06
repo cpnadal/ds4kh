@@ -84,5 +84,15 @@
 <input type="hidden" id="user_id" name="user_id" value="" />
 </form>
 </div>
+<br>
+<!-- -->
+<!-- MISE A JOUR DU SYSTEME -->
+<div class="parametre upgrade_database">
+<h3>Mise à jour du système</h3>
+<form method="post">
+<button class="btn btn-danger" name="database_update">Je mets à jour la base de données</button>
+<button class="btn btn-danger" name="system_update">Je mets à jour le système</button>
+</form>
+</div>
 <!-- -->
 <?php } ?>
